@@ -16,6 +16,10 @@ const Home = () => {
 
   useEffect(() => {
     async function fetchMyList() {
+      //  await Moralis.start({
+      //     serverUrl: "https://sy5p8xcxe4jw.usemoralis.com:2053/server",
+      //     appId: "rnkTiTnEKlNlZVj7Wu9HWy1mgnx1HhnxgigIkvox",
+      //   }); //if getting errors add this 
       try{
         const theList = await Moralis.Cloud.run("getMyList", {addrs: account});
         const filterdA = movies.filter(function (e) {
@@ -109,7 +113,40 @@ return(
 
       </Tab>
       <Tab tabKey={2} tabName={"Series"} isDisabled={true}></Tab>
-      <Tab tabKey={3} tabName={"MyList"}></Tab>
+      <Tab tabKey={3} tabName={"MyList"}>
+        <div className="ownListContent">
+          <div className="title">
+            Your Library
+          </div>
+          {myMovies && isAuthenticated ? (
+
+              <div className="ownThumbs">
+                {
+                  myMovies.map((e) => {
+                    return(
+                      <img 
+                        src = {e.Thumnbnail}
+                        className = "thumbnail"
+                        onClick={
+                          () => {
+                            setSelectedFilm(e);
+                            setVisible(true);
+                          }
+                        }
+                      >
+                      </img>
+                    )
+                  })
+                }
+            </div>
+          ) : (
+            <div className="ownThumbs">
+              You Need To Authenticate To View Your Own List
+            </div>
+          )}
+        </div>
+      
+      </Tab>
     </TabList>
 
     { selectedFilm && (
