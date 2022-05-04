@@ -88,12 +88,42 @@ return(
             hasFooter={false}
             width="1000px"
           >
-          </Modal>
+
+          <div className="modalContent">
+            <img src={selectedFilm.Scene} className="modalImg"></img>
+            <img className="modalLogo" src={selectedFilm.Logo}></img>
+
+            <div className="modalPlayButton">
+              <Button
+                icon="chevronRightX2"
+                onClick={function noRefCheck(){}}
+                text="Play"
+                theme="secondary"
+                type="button"
+              />
+              <Button
+                icon="plus"
+                onClick={function noRefCheck(){}}
+                text="Add to My List"
+                theme="translucent"
+                type="button"
+              />
+          </div>
+          <div className="movieInfo">
+            <div className="description">
+              <div className="details">
+                <span>{selectedFilm.Year}</span>
+                <span>{selectedFilm.Duration}</span>
+              </div>
+              {selectedFilm.Description}
+            </div>
+          </div>
         </div>
-      )}
-  </div>
-  </>
-  );
-};
+      </Modal>
+    </div>
+  )}
+</div>
+</>
+);};
 
 export default Home;
