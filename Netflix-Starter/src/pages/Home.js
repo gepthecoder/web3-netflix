@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { Logo } from '../images/Netflix';
@@ -11,8 +11,26 @@ const Home = () => {
 
   const [visible, setVisible] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState();
+  const [myMovies, setMyMovies] = useState();
+  const { isAuthenticated, Moralis, account } = useMoralis();
 
-  const { isAuthenticated } = useMoralis();
+  useEffect(() => {
+    async function fetchMyList() {
+      try{
+        const theList = await Moralis.Cloud.run("getMyList", {addrs: account});
+        const filterdA = movies.filter(function (e) {
+          return theList.indexOf(e.Name) > -1;
+        });
+
+        setMyMovies(filterdA);
+      } catch (error) {
+        console.error(error)
+      }
+    }
+
+    fetchMyList();
+
+  }, [account]);
 
   const dispatch = useNotification();
 
@@ -22,8 +40,8 @@ const Home = () => {
       message:"Please Connect Your Crypto Wallet",
       title:"Not Authenticated!",
       position:"topL"
-    })
-  }
+    });
+  };
 
 return(
   <>
@@ -57,7 +75,7 @@ return(
             />
              <Button
               icon="plus"
-              onClick={() => console.log(isAuthenticated)}
+              onClick={() => console.log(myMovies)}
               text="Add to My List"
               theme="translucent"
               type="button"
