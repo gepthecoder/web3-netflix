@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { Logo } from '../images/Netflix';
-import { ConnectButton, Icon, Tab, TabList } from "web3uikit";
+import { ConnectButton, Icon, Tab, TabList, Button } from "web3uikit";
 import { movies } from "../helpers/library";
 
 const Home = () => {
@@ -29,6 +29,22 @@ return(
           <img src={movies[0].Scene} className="sceneImg"></img>
           <img className="sceneLogo" src={movies[0].Logo}></img>
           <p className="sceneDesc">{movies[0].Description}</p>
+          <div className="playButton">
+            <Button
+              icon="chevronRightX2"
+              onClick={function noRefCheck(){}}
+              text="Play"
+              theme="secondary"
+              type="button"
+            />
+             <Button
+              icon="plus"
+              onClick={function noRefCheck(){}}
+              text="Add to My List"
+              theme="translucent"
+              type="button"
+            />
+          </div>
         </div>
       </Tab>
       <Tab tabKey={2} tabName={"Series"} isDisabled={true}></Tab>
