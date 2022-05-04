@@ -46,6 +46,26 @@ return(
             />
           </div>
         </div>
+
+        <div className="title">
+          Movies
+        </div>
+
+        <div className="thumbs">
+          {movies &&
+            movies.map((e) => {
+              return(
+                <img 
+                  src = {e.Thumnbnail}
+                  className = "thumbnail"
+                >
+                </img>
+              )
+            })
+          
+          }
+        </div>
+
       </Tab>
       <Tab tabKey={2} tabName={"Series"} isDisabled={true}></Tab>
       <Tab tabKey={3} tabName={"MyList"}></Tab>
