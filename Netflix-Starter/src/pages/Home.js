@@ -117,6 +117,13 @@ return(
               </div>
               {selectedFilm.Description}
             </div>
+            <div className="detailedInfo">
+                  Genre:
+                  <span className="deets">{selectedFilm.Genre}</span>
+                  <br />
+                  Actors:
+                  <span className="deets">{selectedFilm.Actors}</span>
+            </div>
           </div>
         </div>
       </Modal>
