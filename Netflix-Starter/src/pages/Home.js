@@ -27,6 +27,8 @@ return(
       <Tab tabKey={1} tabName={"Movies"}>
         <div className="scene">
           <img src={movies[0].Scene} className="sceneImg"></img>
+          <img className="sceneLogo" src={movies[0].Logo}></img>
+          <p className="sceneDesc">{movies[0].Description}</p>
         </div>
       </Tab>
       <Tab tabKey={2} tabName={"Series"} isDisabled={true}></Tab>
