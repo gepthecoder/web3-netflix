@@ -2,10 +2,14 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { Logo } from '../images/Netflix';
-import { ConnectButton, Icon, Tab, TabList, Button } from "web3uikit";
+import { ConnectButton, Icon, Tab, TabList, Button, Modal } from "web3uikit";
 import { movies } from "../helpers/library";
+import { useState } from "react";
 
 const Home = () => {
+
+  const [visible, setVisible] = useState(false);
+  const [selectedFilm, setSelectedFilm] = useState();
 
 return(
   <>
@@ -58,11 +62,16 @@ return(
                 <img 
                   src = {e.Thumnbnail}
                   className = "thumbnail"
+                  onClick={
+                    () => {
+                      setSelectedFilm(e);
+                      setVisible(true);
+                    }
+                  }
                 >
                 </img>
               )
             })
-          
           }
         </div>
 
@@ -70,10 +79,21 @@ return(
       <Tab tabKey={2} tabName={"Series"} isDisabled={true}></Tab>
       <Tab tabKey={3} tabName={"MyList"}></Tab>
     </TabList>
-  </div>
 
+    { selectedFilm && (
+        <div className="Modal">
+          <Modal
+            onCloseButtonPressed={() => setVisible(false)}
+            isVisible={visible}
+            hasFooter={false}
+            width="1000px"
+          >
+          </Modal>
+        </div>
+      )}
+  </div>
   </>
-)
-}
+  );
+};
 
 export default Home;
