@@ -2,14 +2,28 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import "./Home.css";
 import { Logo } from '../images/Netflix';
-import { ConnectButton, Icon, Tab, TabList, Button, Modal } from "web3uikit";
+import { ConnectButton, Icon, Tab, TabList, Button, Modal, useNotification } from "web3uikit";
 import { movies } from "../helpers/library";
 import { useState } from "react";
+import { useMoralis } from "react-moralis";
 
 const Home = () => {
 
   const [visible, setVisible] = useState(false);
   const [selectedFilm, setSelectedFilm] = useState();
+
+  const { isAuthenticated } = useMoralis();
+
+  const dispatch = useNotification();
+
+  const handleNewNotification = () => {
+    dispatch({
+      type:"error",
+      message:"Please Connect Your Crypto Wallet",
+      title:"Not Authenticated!",
+      position:"topL"
+    })
+  }
 
 return(
   <>
@@ -43,7 +57,7 @@ return(
             />
              <Button
               icon="plus"
-              onClick={function noRefCheck(){}}
+              onClick={() => console.log(isAuthenticated)}
               text="Add to My List"
               theme="translucent"
               type="button"
@@ -94,22 +108,44 @@ return(
             <img className="modalLogo" src={selectedFilm.Logo}></img>
 
             <div className="modalPlayButton">
-              <Link to="/player" state={selectedFilm.Movie}>
+              {isAuthenticated ? (
+              <>
+                <Link to="/player" state={selectedFilm.Movie}>
+                  <Button
+                    icon="chevronRightX2"
+                    onClick={function noRefCheck(){}}
+                    text="Play"
+                    theme="secondary"
+                    type="button"
+                  />
+                </Link>
+                <Button
+                  icon="plus"
+                  onClick={() => console.log(isAuthenticated)}
+                  text="Add to My List"
+                  theme="translucent"
+                  type="button"
+                />
+              </>
+              ) : (
+              <>
                 <Button
                   icon="chevronRightX2"
-                  onClick={function noRefCheck(){}}
+                  onClick={handleNewNotification}
                   text="Play"
                   theme="secondary"
                   type="button"
                 />
-              </Link>
-              <Button
-                icon="plus"
-                onClick={function noRefCheck(){}}
-                text="Add to My List"
-                theme="translucent"
-                type="button"
-              />
+                <Button
+                  icon="plus"
+                  onClick={handleNewNotification}
+                  text="Add to My List"
+                  theme="translucent"
+                  type="button"
+                />
+              </>
+              )}
+
           </div>
           <div className="movieInfo">
             <div className="description">
