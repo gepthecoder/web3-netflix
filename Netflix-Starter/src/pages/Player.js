@@ -23,7 +23,7 @@ const Player = () => {
         <Icon
             className="backButton"
             fill="rgba(255,255,255,0.25)"
-            size={60}
+            size={40}
             svg="arrowCircleLeft"
         />
       </Link>
