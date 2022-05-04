@@ -94,13 +94,15 @@ return(
             <img className="modalLogo" src={selectedFilm.Logo}></img>
 
             <div className="modalPlayButton">
-              <Button
-                icon="chevronRightX2"
-                onClick={function noRefCheck(){}}
-                text="Play"
-                theme="secondary"
-                type="button"
-              />
+              <Link to="/player" state={selectedFilm.Movie}>
+                <Button
+                  icon="chevronRightX2"
+                  onClick={function noRefCheck(){}}
+                  text="Play"
+                  theme="secondary"
+                  type="button"
+                />
+              </Link>
               <Button
                 icon="plus"
                 onClick={function noRefCheck(){}}
